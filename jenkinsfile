@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    tools {
+      
+      nodejs "node-16"
+    }
+
+    stages {
+         stage("Clean Workspace"){
+            steps{
+                cleanWs()
+            }
+        }
+        
+        stage("Checkout") {
+            steps {
+                git branch: 'main', url: 'https://github.com/Himalaya7087/NodeProject.git', credentialsId:'PASS'
+            }
+        }
+        
+           stage('Installing Dependencies') {
+            steps {
+            
+                // Run Maven on a Unix agent.
+                sh "npm install"
+            }
+
+            
+        }
+        
+        stage('Build') {
+            steps {
+            
+                // Run Maven on a Unix agent.
+                sh "npm run build"
+            }
+
+            
+        }
+        
+
+        
+        stage('s3-upload') {
+            steps {
+            
+                // Run Maven on a Unix agent.
+                 sh "tar -cvzf file-${env.BUILD_NUMBER}.tar.gz build/*"
+                 sh "aws s3 cp  file-${env.BUILD_NUMBER}.tar.gz s3://himalaya-artifacts/node-project/"
+            }
+
+            
+        }
+    }
+}
