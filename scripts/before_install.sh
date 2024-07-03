@@ -12,9 +12,6 @@ else
     mkdir -p "$DIR"
 fi
 
-# Remove the existing nginx configuration file if it exists
-if [ -f /etc/nginx/conf.d/node-app-nginx.conf ]; then
-    rm /etc/nginx/conf.d/node-app-nginx.conf
-fi
+
 
 echo "Operation completed."
