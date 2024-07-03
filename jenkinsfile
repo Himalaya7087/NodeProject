@@ -67,7 +67,7 @@ pipeline {
                 sh """
                 aws deploy create-deployment --application-name React-App \
                 --deployment-group-name React-App-Dev-DG \
-                --revision revisionType=S3,bucket=himalaya-artifacts,key=node-project/file-12.tar.gz,bundleType=tar 
+                --revision revisionType=S3,bucket=himalaya-artifacts,key=node-project/file-${env.BUILD_NUMBER}.tar.gz,bundleType=tar 
                 """
             }
         }
