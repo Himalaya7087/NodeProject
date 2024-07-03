@@ -1,0 +1,22 @@
+version: 0.0
+os: linux
+files:
+  - source: build/
+    destination: /var/www/node-app/
+  - source: node-app-nginx.conf
+    destination: /etc/nginx/conf.d/
+    overwrite: true
+hooks:
+  ApplicationStop:
+    - location: scripts/application_stop.sh
+      runas: root
+  BeforeInstall:
+    - location: scripts/before_install.sh
+      runas: root
+  AfterInstall:
+    - location: scripts/after_install.sh
+      runas: root
+  ApplicationStart:
+    - location: scripts/application_start.sh
+      runas: root
+  
