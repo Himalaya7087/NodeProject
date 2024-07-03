@@ -61,5 +61,15 @@ pipeline {
 
             
         }
+
+        stage("Deploy to EC2"){
+            steps{
+                sh """
+                aws deploy create-deployment --application-name React-App \
+                --deployment-group-name React-App-Dev-DG \
+                --revision revisionType=S3,bucket=himalaya-artifacts,key=node-project/file-12.tar.gz,bundleType=tar 
+                """
+            }
+        }
     }
 }
