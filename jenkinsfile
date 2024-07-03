@@ -43,10 +43,20 @@ pipeline {
         
         stage('s3-upload') {
             steps {
+                sh"""
+                  mkdir temp_build;
+                  cp -rf build temp_build
+                  cp -rf scripts temp_build
+                  cp appspec.yml temp_build
+                  cp node-app-nginx.conf temp_build
+
+                  tar -cvzf file-${env.BUILD_NUMBER}.tar.gz temp_build/*
+                  aws s3 cp  file-${env.BUILD_NUMBER}.tar.gz s3://himalaya-artifacts/node-project/
+                """
             
-                // Run Maven on a Unix agent.
-                 sh "tar -cvzf file-${env.BUILD_NUMBER}.tar.gz build/*"
-                 sh "aws s3 cp  file-${env.BUILD_NUMBER}.tar.gz s3://himalaya-artifacts/node-project/"
+                // // Run Maven on a Unix agent.
+                //  sh "tar -cvzf file-${env.BUILD_NUMBER}.tar.gz build/*"
+                //  sh "aws s3 cp  file-${env.BUILD_NUMBER}.tar.gz s3://himalaya-artifacts/node-project/"
             }
 
             
