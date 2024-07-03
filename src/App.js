@@ -99,7 +99,7 @@ const App = () => {
             </button>
           </div>
           <div className="form-group">
-            <label htmlFor="password-strength">Password lengthhh</label>
+            <label htmlFor="password-strength">Password length</label>
             <input className="pw" defaultValue={passwordLength} onChange={(e) => setPasswordLength(e.target.value)} type="number" id="password-stregth" name="password-strength" max="26" min="8" />
           </div>
           <div className="form-group">
