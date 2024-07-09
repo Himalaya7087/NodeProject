@@ -43,11 +43,11 @@ pipeline {
         
         stage('Docker') {
             steps {
-                dir($WORKSPACE)    
-                {  
+                
+                
               sh "docker build -t react-image ."
               
-            }
+            
             
         }
     }
